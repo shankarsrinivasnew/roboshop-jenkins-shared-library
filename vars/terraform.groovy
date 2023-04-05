@@ -8,7 +8,7 @@ def call() {
         stages {
             stage('init') {
                 steps {
-                    sh 'terraform ${ACTION} -backend-config /env-${ENV}/state.tfvars'
+                    sh 'terraform ${ACTION} -backend-config=/env-${ENV}/state.tfvars'
                 }
             }
             stage("plan") {
