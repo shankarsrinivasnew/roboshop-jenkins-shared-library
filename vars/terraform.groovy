@@ -23,10 +23,10 @@ def call() {
                 }
             }
             stage("apply") {
+                when {
+                    environment name: 'ACTION', value: 'apply'
+                }
                 steps {
-                    when {
-                        environment name: 'ACTION', value: 'apply'
-                    }
                     // sh 'terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars'
                     echo "apply done"
                 }
