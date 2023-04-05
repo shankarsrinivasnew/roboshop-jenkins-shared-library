@@ -3,7 +3,7 @@ def call() {
         agent any
         parameters {
             string(name: 'ENV', defaultValue: 'prod', description: 'Which Environment?')
-            string(name: 'ACTION', defaultValue: 'init', description: 'Which Action?')
+            choice(name: 'ACTION', choices: ['init', 'plan', 'apply'], description: 'Pick something')
         }
         stages {
             stage('init') {
