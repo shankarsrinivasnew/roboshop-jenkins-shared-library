@@ -1,15 +1,21 @@
 def call() {
     pipeline {
         agent any
-        statges {
+        stages {
             stage('compile') {
-                echo "compile"
+                steps {
+                    echo "compile"
+                }
             }
             stage('test') {
-                echo "test"
+                steps {
+                    echo "test"
+                }
             }
-            stage ('codequality') {
-                echo "codequality"
+            stage('codequality') {
+                steps {
+                    echo "codequality"
+                }
             }
         }
     }
