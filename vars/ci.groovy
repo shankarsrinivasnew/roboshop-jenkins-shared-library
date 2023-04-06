@@ -8,9 +8,9 @@ def call() {
                         if (app_lang == "nodejs") {
                             sh 'npm install'
                         }
-                        if (app_lang == "maven") {
-                            sh 'pip3.6 install -r requirements.txt'
-                        }
+                        // if (app_lang == "maven") {
+                        //     sh 'pip3.6 install -r requirements.txt'
+                        // }
                         if (app_lang == "python") {
                             sh 'mvn package'
                         }
