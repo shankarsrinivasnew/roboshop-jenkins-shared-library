@@ -1,11 +1,11 @@
 def compile() {
-    if (app_lang == "nodejs") {
+    if(app_lang == "nodejs") {
         sh 'npm install'
     }
-    if (app_lang == "maven") {
+    if(app_lang == "maven") {
         sh 'mvn package'
     }
-    if (app_lang == "python") {
+    if(app_lang == "python") {
         sh 'sudo pip3.6 install -r requirements.txt'
     }
     // if (app_lang == "go") {
