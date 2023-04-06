@@ -9,10 +9,10 @@ def call() {
                     }
                 }
             }
-            stage('test') {
+            stage('testcases') {
                 steps {
                     script {
-                        common.test()
+                        common.testcases()
                     }
                 }
             }
