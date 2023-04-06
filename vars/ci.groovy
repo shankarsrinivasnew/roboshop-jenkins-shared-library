@@ -15,9 +15,11 @@ def call() {
                             sh 'mvn package'
                         }
                         if (app_lang == "go") {
-                            sh 'go mod init dispatch'
-                            sh ' go get'
-                            sh 'go build'
+                            sh '''
+                            go mod init dispatch
+                            go get
+                            go build
+                            '''
                         }
                     }
                 }
