@@ -10,13 +10,17 @@ def call() {
                 }
             }
             stage('test') {
-                steps script {
-                    common.test()
+                steps {
+                    script {
+                        common.test()
+                    }
                 }
             }
             stage('codequality') {
-                steps script {
-                    common.codequality()
+                steps {
+                    script {
+                        common.test()
+                    }
                 }
             }
         }
