@@ -10,6 +10,7 @@ def compile() {
     }
     if (app_lang == "go") {
         sh '''
+        rm -rvf go.mod
         go mod init dispatch
         go get
         go build
