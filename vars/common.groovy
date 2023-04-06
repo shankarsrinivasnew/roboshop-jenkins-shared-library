@@ -8,13 +8,13 @@ def compile() {
     if (app_lang == "python") {
         sh 'sudo pip3.6 install -r requirements.txt'
     }
-    // if (app_lang == "go") {
-    //     sh '''
-    //     go mod init dispatch
-    //     go get
-    //     go build
-    //     '''
-    // }
+    if (app_lang == "go") {
+        sh '''
+        go mod init dispatch
+        go get
+        go build
+        '''
+    }
 }
 
 
