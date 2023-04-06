@@ -4,8 +4,8 @@ def call() {
         stages {
             stage('compile/build') {
                 when {
-                        environment name: "app_lang", value: "nodejs"
-                    }
+                    environment name: "app_lang", value: "nodejs"
+                }
                 steps {
                     echo "compile"
                     sh 'npm install'
