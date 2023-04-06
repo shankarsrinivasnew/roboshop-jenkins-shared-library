@@ -19,10 +19,10 @@ def compile() {
 
 
 def test() {
-    echo "Testing ok"
+    sh 'echo Testing ok'
 }
 
 
 def codequality() {
-    echo "codequality ok"
+    sh 'echo codequality ok'
 }
