@@ -19,7 +19,7 @@ def call() {
             stage('codequality') {
                 steps {
                     script {
-                        common.test()
+                        common.codequality()
                     }
                 }
             }
