@@ -3,14 +3,14 @@ def call () {
         agent any
         statges {
             stage('compile') {
-                sh echo "compile"
+                echo "compile"
             }
             stage('test') {
-                sh echo "test"
+                echo "test"
             }
             stage ('codequality') {
-                sh echo "codequality"
+                echo "codequality"
             }
         }
     }
-}̵
+}
