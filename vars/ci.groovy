@@ -3,16 +3,15 @@ def call() {
         agent any
         stages {
             stage('compile/build') {
-                when {
-                    environment name: "app_lang", value: "nodejs"
-                }
                 steps {
-                    // script {
-                    //     if (app_lang == "nodejs") {
-                    echo "compile"
-                    sh 'npm install'
-                    //     }
-                    // }
+                    script {
+                        if (app_lang == "nodejs") {
+                            sh 'npm install'
+                        }
+                        if (app_lang == "maven") {
+                            sh 'mvn package'
+                        }
+                    }
                 }
             }
             stage('test') {
