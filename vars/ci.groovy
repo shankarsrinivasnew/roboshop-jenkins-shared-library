@@ -13,6 +13,8 @@ def call() {
                             sh 'npm install'
                         }
                     }
+                }
+            }
                     stage('test') {
                         steps {
                             echo "test"
@@ -26,3 +28,4 @@ def call() {
                 }
             }
         }
+
