@@ -12,7 +12,7 @@ def call() {
                             sh 'mvn package'
                         }
                         if (app_lang == "python") {
-                            sh 'pip3.6 install -r requirements.txt'
+                            sh 'sudo pip3.6 install -r requirements.txt'
                         }
                         // if (app_lang == "go") {
                         //     sh '''
