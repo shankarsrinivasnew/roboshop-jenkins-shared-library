@@ -14,13 +14,13 @@ def call() {
                         if (app_lang == "python") {
                             sh 'mvn package'
                         }
-                        if (app_lang == "go") {
-                            sh '''
-                            go mod init dispatch
-                            go get
-                            go build
-                            '''
-                        }
+                        // if (app_lang == "go") {
+                        //     sh '''
+                        //     go mod init dispatch
+                        //     go get
+                        //     go build
+                        //     '''
+                        // }
                     }
                 }
             }
