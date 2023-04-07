@@ -1,4 +1,7 @@
 def compile() {
+    if (!env.sonar_extra_opts) {
+        env.sonar_extra_opts = ""
+    }
     if (app_lang == "nodejs") {
         sh 'npm install'
     }
