@@ -31,7 +31,7 @@ def call() {
         post {
             failure {
                 echo "  you failed , you should try again"
-                mail bcc: '', body: ' jenkins stage failure', cc: '', from: 'shankarsrinivasnew@gmail.com', mimeType: 'text/html', replyTo: '', subject: ' jenkins stage failure', to: 'shankarsrinivasnew@gmail.com'
+                mail body: "<h1>${component} - pipeline failed \n ${BUILD_URL} </h1>", from: 'shankarsrinivasnew@gmail.com', mimeType: 'text/html', subject: "${component} - pipeline failed ", to: 'shankarsrinivasnew@gmail.com'
             }
         }
     }
