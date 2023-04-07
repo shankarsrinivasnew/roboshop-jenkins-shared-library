@@ -27,5 +27,11 @@ def call() {
                 }
             }
         }
+        post {
+            failure {
+                echo "  you failed , you should try again"
+                mail bcc: '', body: ' jenkins stage failure', cc: '', from: 'shankarsrinivasnew@gmail.com', mimeType: 'text/html', replyTo: '', subject: ' jenkins stage failure', to: 'shankarsrinivasnew@gmail.com'
+            }
+        }
     }
 }
