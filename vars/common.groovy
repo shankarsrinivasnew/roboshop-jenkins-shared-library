@@ -34,6 +34,6 @@ def testcases() {
 def codequality() {
     withAWSParameterStore(credentialsId: 'AWSCRED', naming: 'relative', path: '/', recursive: true, regionName: 'us-east-1') {
         sh 'sonar-scanner -Dsonar.host.url=http://172.31.7.44:9000 -Dsonar.login=${sonar_user} -Dsonar.password=${sonar_pass} -Dsonar.projectKey=${component} ${sonar_extra_opts} -Dsonar.qualitygate.wait=true'
+        sh 'echo codequality checked'
     }
-    sh 'echo codequality checked'
 }
