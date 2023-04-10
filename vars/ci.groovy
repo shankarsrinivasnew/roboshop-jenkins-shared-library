@@ -5,30 +5,30 @@ def call() {
     pipeline {
         agent any
         stages {
-            stage('compile/build') {
-                when {
-                    not {
-                        branch  'main'
+            when {
+                not {
+                    branch  'main'
+                }
+                stage('compile/build') {
+                    steps {
+                        script {
+                            common.compile()
+                            sh 'env'
+                        }
                     }
                 }
-                steps {
-                    script {
-                        common.compile()
-                        sh 'env'
+                stage('testcases') {
+                    steps {
+                        script {
+                            common.testcases()
+                        }
                     }
                 }
-            }
-            stage('testcases') {
-                steps {
-                    script {
-                        common.testcases()
-                    }
-                }
-            }
-            stage('codequality') {
-                steps {
-                    script {
-                        common.codequality()
+                stage('codequality') {
+                    steps {
+                        script {
+                            common.codequality()
+                        }
                     }
                 }
             }
