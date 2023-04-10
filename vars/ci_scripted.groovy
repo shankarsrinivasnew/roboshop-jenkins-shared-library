@@ -13,18 +13,16 @@ def call() {
             }
             sh 'env'
             if (
-                env.BRANCH_NAME != 'main'
-                {
-                    stage('compile/build') {
-                        common.compile()
-                    }
+                env.BRANCH_NAME != "main"
+            )
+            {
+                stage('compile/build') {
+                    common.compile()
                 }
-            ) 
-
-            stage('testcases') {
-                    common.testcases()
             }
-            
+            stage('testcases') {
+                common.testcases()
+            }
             stage('codequality') {
                 common.codequality()
             }
