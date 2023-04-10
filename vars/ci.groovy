@@ -6,6 +6,11 @@ def call() {
         agent any
         stages {
             stage('compile/build') {
+                when {
+                    not {
+                        branch  'main'
+                    }
+                }
                 steps {
                     script {
                         common.compile()
