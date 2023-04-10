@@ -19,11 +19,6 @@ def call() {
                 }
             }
             stage('testcases') {
-                when {
-                    not {
-                        branch  'main'
-                    }
-                }
                 steps {
                     script {
                         common.testcases()
@@ -31,11 +26,6 @@ def call() {
                 }
             }
             stage('codequality') {
-                when {
-                    not {
-                        branch  'main'
-                    }
-                }
                 steps {
                     script {
                         common.codequality()
