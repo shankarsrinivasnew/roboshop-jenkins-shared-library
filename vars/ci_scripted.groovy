@@ -3,7 +3,6 @@ def call() {
     //     env.sonar_extra_opts = ""
     // }
     node ('workstation') {
-        agent any
         try {
             stage (' check  out code') {
                 sh 'ls -l'
