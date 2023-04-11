@@ -12,16 +12,15 @@ def call() {
                 sh 'ls -l'
             }
             sh 'env'
-            if (
-                env.BRANCH_NAME != "main"
-            )
-            {
+            if (env.BRANCH_NAME != "main") {
                 stage('compile/build') {
                     common.compile()
                 }
             }
-            stage('testcases') {
-                common.testcases()
+            if (!env.TAG_NAME && env.BRANCH_NAME != "main") {
+                stage('testcases') {
+                    common.testcases()
+                }
             }
             stage('codequality') {
                 common.codequality()
