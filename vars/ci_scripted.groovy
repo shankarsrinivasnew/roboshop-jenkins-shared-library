@@ -30,16 +30,15 @@ def call() {
                     common.uploadArtifacts()
                 }
             }
-        }
-        if (env.BRANCH_NAME ==~ "PR-.*") {
-            stage('codequality') {
-                common.codequality()
+            if (env.BRANCH_NAME ==~ "PR-.*") {
+                stage('codequality') {
+                    common.codequality()
+                }
             }
         }
+        catch (e) {
+            echo "  you failed , you should try again"
+            mail body: "<h1>${component} - pipeline failed \n ${BUILD_URL} </h1>", from: 'shankarsrinivasnew@gmail.com', mimeType: 'text/html', subject: "${component} - pipeline failed ", to: 'shankarsrinivasnew@gmail.com'
+        }
     }
-    catch (e) {
-        echo "  you failed , you should try again"
-        mail body: "<h1>${component} - pipeline failed \n ${BUILD_URL} </h1>", from: 'shankarsrinivasnew@gmail.com', mimeType: 'text/html', subject: "${component} - pipeline failed ", to: 'shankarsrinivasnew@gmail.com'
-    }
-}
 }
