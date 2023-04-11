@@ -22,7 +22,7 @@ def call() {
                     common.testcases()
                 }
             }
-            if (env.BRANCH_NAME = "PR-*")
+            if (env.BRANCH_NAME == "PR-.*")
             stage('codequality') {
                 common.codequality()
             }
