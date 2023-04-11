@@ -22,10 +22,8 @@ def call() {
                     common.testcases()
                 }
             }
-            if (env.PR_NAME) {
-                stage('codequality') {
-                    common.codequality()
-                }
+            stage('codequality') {
+                common.codequality()
             }
         }
         catch (e) {
