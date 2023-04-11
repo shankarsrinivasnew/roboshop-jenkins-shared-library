@@ -22,14 +22,24 @@ def call() {
                     common.testcases()
                 }
             }
-            if (env.BRANCH_NAME ==~ "PR-.*")
+            if (env.TAG_NAME) {
+                stage('prepareArtifacts') {
+                    common.prepareArtifacts()
+                }
+                stage('uploadArtifacts') {
+                    common.uploadArtifacts()
+                }
+            }
+        }
+        if (env.BRANCH_NAME ==~ "PR-.*") {
             stage('codequality') {
                 common.codequality()
             }
         }
-        catch (e) {
-            echo "  you failed , you should try again"
-            mail body: "<h1>${component} - pipeline failed \n ${BUILD_URL} </h1>", from: 'shankarsrinivasnew@gmail.com', mimeType: 'text/html', subject: "${component} - pipeline failed ", to: 'shankarsrinivasnew@gmail.com'
-        }
     }
+    catch (e) {
+        echo "  you failed , you should try again"
+        mail body: "<h1>${component} - pipeline failed \n ${BUILD_URL} </h1>", from: 'shankarsrinivasnew@gmail.com', mimeType: 'text/html', subject: "${component} - pipeline failed ", to: 'shankarsrinivasnew@gmail.com'
+    }
+}
 }

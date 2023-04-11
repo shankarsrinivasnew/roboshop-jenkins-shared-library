@@ -36,3 +36,11 @@ def codequality() {
         sh 'echo codequality checked'
     }
 }
+
+def prepareArtifacts() {
+    sh 'echo prearing artifacts'
+}
+
+def uploadArtifacts() {
+    sh 'echo uploading artifacts'
+}
