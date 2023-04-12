@@ -38,7 +38,7 @@ def codequality() {
 }
 
 def prepareArtifacts() {
-    sh 'echo prearing artifacts'
+    sh 'echo preparing artifacts'
 }
 
 def uploadArtifacts() {
