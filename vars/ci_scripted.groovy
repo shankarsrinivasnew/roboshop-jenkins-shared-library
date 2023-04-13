@@ -8,7 +8,7 @@ def call() {
                 sh 'ls -l'
                 cleanWs()
                 sh 'ls -l'
-                git branch: 'main', url: 'https://github.com/shankarsrinivasnew/cart'
+                git branch: 'main', url: "https://github.com/shankarsrinivasnew/${component}"
                 sh 'ls -l'
             }
             sh 'env'
