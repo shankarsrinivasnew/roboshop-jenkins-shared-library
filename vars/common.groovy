@@ -56,5 +56,5 @@ def prepareArtifacts() {
 
 def uploadArtifacts() {
     sh 'echo uploading artifacts'
-    sh "curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/respository/${component}/${component}-${TAG_NAME}.zip"
+    sh "curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/repository/${component}/${component}-${TAG_NAME}.zip"
 }
