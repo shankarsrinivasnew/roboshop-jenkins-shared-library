@@ -1,25 +1,28 @@
 def compile() {
     sh 'echo hello complier'
-    // if (!env.sonar_extra_opts) {
-    //     env.sonar_extra_opts = ""
-    // }
-    // if (app_lang == "nodejs") {
-    //     sh 'npm install'
-    // }
-    // if (app_lang == "maven") {
-    //     sh 'mvn package'
-    // }
-    // if (app_lang == "python") {
-    //     sh 'sudo pip3.6 install -r requirements.txt'
-    // }
-    // if (app_lang == "go") {
-    //     sh '''
-    //     rm -rvf go.mod
-    //     go mod init dispatch
-    //     go get
-    //     go build
-    //     '''
-    // }
+    // for cart , catalogue , user
+    if (app_lang == "nodejs") {
+        sh 'npm install'
+    }
+    // for shipping
+    if (app_lang == "maven") {
+        sh 'mvn package'
+    }
+    // for payment
+    if (app_lang == "python") {
+        sh 'sudo pip3.6 install -r requirements.txt'
+    }
+    // for dispatch
+    if (app_lang == "go") {
+        sh '''
+        rm -rvf go.mod
+        go mod init dispatch
+        go get
+        go build
+        '''
+    }
+    // for frontend no need commplilation , its angular
+    sh 'echo compilation done'
 }
 
 
@@ -31,12 +34,15 @@ def testcases() {
     sh 'echo Testing ok'
 }
 
-// def codequality() {
-//     withAWSParameterStore(credentialsId: 'AWSCRED', naming: 'absolute', path: '/sonarcube', recursive: true, regionName: 'us-east-1') {
-//         sh 'sonar-scanner -Dsonar.host.url=http://172.31.7.44:9000 -Dsonar.login=${SONARCUBE_USER} -Dsonar.password=${SONARCUBE_PASS} -Dsonar.projectKey=${component} ${sonar_extra_opts} -Dsonar.qualitygate.wait=true'
-//         sh 'echo codequality checked'
-//     }
-// }
+def codequality() {
+    if (!env.sonar_extra_opts) {
+        env.sonar_extra_opts = ""
+    }
+    withAWSParameterStore(credentialsId: 'AWSCRED', naming: 'absolute', path: '/sonarcube', recursive: true, regionName: 'us-east-1') {
+        sh 'sonar-scanner -Dsonar.host.url=http://172.31.7.44:9000 -Dsonar.login=${SONARCUBE_USER} -Dsonar.password=${SONARCUBE_PASS} -Dsonar.projectKey=${component} ${sonar_extra_opts} -Dsonar.qualitygate.wait=true'
+        sh 'echo codequality checked'
+    }
+}
 
 // def prepareArtifacts() {
 //     sh 'echo ${TAG_NAME} > VERSION'
