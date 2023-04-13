@@ -1,4 +1,5 @@
 def compile() {
+    sh 'echo hello complier'
     // if (!env.sonar_extra_opts) {
     //     env.sonar_extra_opts = ""
     // }
