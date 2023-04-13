@@ -2,15 +2,19 @@ def compile() {
     if (!env.sonar_extra_opts) {
         env.sonar_extra_opts = ""
     }
+    // cart , catalogue , user
     if (app_lang == "nodejs") {
         sh 'npm install'
     }
+    // shipping
     if (app_lang == "maven") {
         sh 'mvn package'
     }
+    // payment
     if (app_lang == "python") {
         sh 'sudo pip3.6 install -r requirements.txt'
     }
+    // dispatch
     if (app_lang == "go") {
         sh '''
         rm -rvf go.mod
@@ -19,6 +23,7 @@ def compile() {
         go build
         '''
     }
+    // frontend is angular and do need compilation
 }
 
 
@@ -38,7 +43,10 @@ def codequality() {
 }
 
 def prepareArtifacts() {
-    sh 'echo preparing artifacts'
+    if (app_lang == "maven") {
+        
+    }
+    else zip
 }
 
 def uploadArtifacts() {
