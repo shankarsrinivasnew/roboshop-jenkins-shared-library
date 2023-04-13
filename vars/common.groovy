@@ -44,17 +44,17 @@ def codequality() {
     }
 }
 
-// def prepareArtifacts() {
-//     sh 'echo ${TAG_NAME} > VERSION'
-//     if (app_lang == "maven") {
-//         sh "zip - r ${component}-${TAG_NAME}.zip ${component}.jar schema VERSION "
-//     }
-//     else {
-//         sh "zip - r ${component}-${TAG_NAME}.zip $ * - x Jenkinsfile"
-//     }
-// }
+def prepareArtifacts() {
+    sh 'echo ${TAG_NAME} > VERSION'
+    // if (app_lang == "maven") {
+    //     sh "zip - r ${component}-${TAG_NAME}.zip ${component}.jar schema VERSION "
+    // }
+    // else {
+    //     sh "zip - r ${component}-${TAG_NAME}.zip $ * - x Jenkinsfile"
+    // }
+}
 
-// def uploadArtifacts() {
-//     sh 'echo uploading artifacts'
-//     sh "curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.10.184:8081 /respository/${component}/${component}-${TAG_NAME}.zip"
-// }
+def uploadArtifacts() {
+    sh 'echo uploading artifacts'
+    // sh "curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.10.184:8081 /respository/${component}/${component}-${TAG_NAME}.zip"
+}
