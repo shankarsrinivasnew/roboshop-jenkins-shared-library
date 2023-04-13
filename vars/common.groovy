@@ -8,10 +8,12 @@ def compile() {
     if (app_lang == "maven") {
         sh "mvn package;mv target/${component}-1.0.jar ${component}.jar"
     }
+    
     // for payment
     // if (app_lang == "python") {
     //     sh 'sudo pip3.6 install -r requirements.txt'
-    }
+    // }
+
     // for dispatch
     if (app_lang == "go") {
         sh '''
