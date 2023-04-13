@@ -23,13 +23,13 @@ def compile() {
 }
 
 
-// def testcases() {
-//     // npm test
-//     // mvn test
-//     // python -m unittests
-//     // go test
-//     sh 'echo Testing ok'
-// }
+def testcases() {
+    // npm test
+    // mvn test
+    // python -m unittests
+    // go test
+    sh 'echo Testing ok'
+}
 
 // def codequality() {
 //     withAWSParameterStore(credentialsId: 'AWSCRED', naming: 'absolute', path: '/sonarcube', recursive: true, regionName: 'us-east-1') {
