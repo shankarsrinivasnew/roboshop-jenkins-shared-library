@@ -8,7 +8,7 @@ def compile() {
     }
     // shipping
     if (app_lang == "maven") {
-        sh 'mvn package'
+        sh "mvn package ; mv target/${component}-1.0.jar ${component}.jar"
     }
     // payment
     if (app_lang == "python") {
@@ -23,7 +23,7 @@ def compile() {
         go build
         '''
     }
-    // frontend is angular and do need compilation
+    // frontend is angular and don't need compilation
 }
 
 
@@ -43,10 +43,13 @@ def codequality() {
 }
 
 def prepareArtifacts() {
+    sh 'echo ${TAG_NAME} > VERSION'
     if (app_lang == "maven") {
-        
+        sh "zip - r ${component}-${TAG_NAME}.zip ${component}.jar schema VERSION "
     }
-    else zip
+    else {
+        sh "zip - r ${component}-${TAG_NAME}.zip $ * - x Jenkinsfile"
+    }
 }
 
 def uploadArtifacts() {
