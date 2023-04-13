@@ -1,24 +1,24 @@
 def compile() {
-    if (!env.sonar_extra_opts) {
-        env.sonar_extra_opts = ""
-    }
-    if (app_lang == "nodejs") {
-        sh 'npm install'
-    }
-    if (app_lang == "maven") {
-        sh 'mvn package'
-    }
-    if (app_lang == "python") {
-        sh 'sudo pip3.6 install -r requirements.txt'
-    }
-    if (app_lang == "go") {
-        sh '''
-        rm -rvf go.mod
-        go mod init dispatch
-        go get
-        go build
-        '''
-    }
+    // if (!env.sonar_extra_opts) {
+    //     env.sonar_extra_opts = ""
+    // }
+    // if (app_lang == "nodejs") {
+    //     sh 'npm install'
+    // }
+    // if (app_lang == "maven") {
+    //     sh 'mvn package'
+    // }
+    // if (app_lang == "python") {
+    //     sh 'sudo pip3.6 install -r requirements.txt'
+    // }
+    // if (app_lang == "go") {
+    //     sh '''
+    //     rm -rvf go.mod
+    //     go mod init dispatch
+    //     go get
+    //     go build
+    //     '''
+    // }
 }
 
 
