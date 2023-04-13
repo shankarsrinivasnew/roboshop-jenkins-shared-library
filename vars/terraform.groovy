@@ -27,9 +27,14 @@ def call() {
                     environment name: 'ACTION', value: 'apply'
                 }
                 steps {
-                    // sh 'terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars'
+                    sh 'terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars'
                     echo "apply done"
                 }
+            }
+        }
+        post {
+            always {
+                cleanWs()
             }
         }
     }
