@@ -8,12 +8,10 @@ def compile() {
     if (app_lang == "maven") {
         sh "mvn package;mv target/${component}-1.0.jar ${component}.jar"
     }
-    
     // for payment
     // if (app_lang == "python") {
     //     sh 'sudo pip3.6 install -r requirements.txt'
     // }
-
     // for dispatch
     if (app_lang == "go") {
         sh '''
@@ -58,5 +56,13 @@ def prepareArtifacts() {
 
 def uploadArtifacts() {
     sh 'echo uploading artifacts'
-    sh "curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/repository/${component}/${component}-${TAG_NAME}.zip"
+    env.nexus_pass = sh (script: 'aws ssm get-parameter --name "prod.nexus_pass"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
+    wrap([
+        $class: 'MaskPasswordsBuildWrapper',
+        varPasswordPairs: [[password: nexus_pass]]
+    ]) {
+        sh "curl -v -u admin:nexus_pass --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/repository/${component}/${component}-${TAG_NAME}.zip"
+    }
 }
+    
+
