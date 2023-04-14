@@ -7,9 +7,6 @@ def call() {
         }
         stages {
             stage('init') {
-                when {
-                    environment name: 'ACTION', value: 'init'
-                }
                 steps {
                     sh 'terraform ${ACTION} -backend-config=env-${ENV}/state.tfvars'
                 }
