@@ -38,9 +38,13 @@ def codequality() {
     if (!env.sonar_extra_opts) {
         env.sonar_extra_opts = ""
     }
-    withAWSParameterStore(credentialsId: 'AWSCRED', naming: 'absolute', path: '/sonarcube', recursive: true, regionName: 'us-east-1') {
-        sh 'sonar-scanner -Dsonar.host.url=http://172.31.7.44:9000 -Dsonar.login=${SONARCUBE_USER} -Dsonar.password=${SONARCUBE_PASS} -Dsonar.projectKey=${component} ${sonar_extra_opts} -Dsonar.qualitygate.wait=true'
-        sh 'echo codequality checked'
+    sh 'echo checking codequality'
+    env.sonarcube_pass = sh (script: 'aws ssm get-parameter --name "prod.sonarcube_pass"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
+    wrap([
+        $class: 'MaskPasswordsBuildWrapper',
+        varPasswordPairs: [[password: sonarcube_pass]]
+    ]) {
+        sh 'sonar-scanner -Dsonar.host.url=http://172.31.7.44:9000 -Dsonar.login=admin -Dsonar.password=${sonarcube_pass} -Dsonar.projectKey=${component} ${sonar_extra_opts} -Dsonar.qualitygate.wait=true'
     }
 }
 
