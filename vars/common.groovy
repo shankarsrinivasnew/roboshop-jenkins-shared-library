@@ -41,6 +41,8 @@ def codequality() {
     sh 'echo checking codequality'
     env.sonarcube_user = sh (script: 'aws ssm get-parameter --name "prod.sonarcube_user"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
     env.sonarcube_pass = sh (script: 'aws ssm get-parameter --name "prod.sonarcube_pass"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
+    sh 'echo ${sonarcube_user}'
+    sh 'echo env.sonarcube_pass'
     wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: sonarcube_pass]]]) {
         sh 'sonar-scanner -Dsonar.host.url=http://172.31.7.44:9000 -Dsonar.login=${sonarcube_user} -Dsonar.password=${sonarcube_pass} -Dsonar.projectKey=${component} ${sonar_extra_opts} -Dsonar.qualitygate.wait=true'
     }
