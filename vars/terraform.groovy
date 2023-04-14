@@ -6,7 +6,7 @@ def call() {
         }
         parameters {
             string(name: 'ENV', defaultValue: 'prod', description: 'Which Environment?')
-            choice(name: 'ACTION', choices: ['init', 'plan', 'apply'], description: 'Pick something')
+            choice(name: 'ACTION', choices: ['init', 'plan', 'apply', 'destroy'], description: 'Pick something')
         }
         stages {
             stage('init') {
@@ -29,6 +29,15 @@ def call() {
                 steps {
                     sh 'terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars'
                     echo "apply done"
+                }
+            }
+            stage("destroy") {
+                when {
+                    environment name: 'ACTION', value: 'destroy'
+                }
+                steps {
+                    sh 'terraform ${ACTION} -auto-approve -var-file=env-${ENV}/${ENV}.tfvars'
+                    echo "destroy done"
                 }
             }
         }
