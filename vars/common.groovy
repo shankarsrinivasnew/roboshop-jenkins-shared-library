@@ -61,7 +61,7 @@ def uploadArtifacts() {
         $class: 'MaskPasswordsBuildWrapper',
         varPasswordPairs: [[password: nexus_pass]]
     ]) {
-        sh "curl -v -u admin:nexus_pass --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/repository/${component}/${component}-${TAG_NAME}.zip"
+        sh "curl -v -u admin:${nexus_pass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/repository/${component}/${component}-${TAG_NAME}.zip"
     }
 }
     
