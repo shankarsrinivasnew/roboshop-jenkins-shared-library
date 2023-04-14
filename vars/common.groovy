@@ -39,12 +39,10 @@ def codequality() {
         env.sonar_extra_opts = ""
     }
     sh 'echo checking codequality'
+    env.sonarcube_user = sh (script: 'aws ssm get-parameter --name "prod.sonarcube_user"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
     env.sonarcube_pass = sh (script: 'aws ssm get-parameter --name "prod.sonarcube_pass"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
-    wrap([
-        $class: 'MaskPasswordsBuildWrapper',
-        varPasswordPairs: [[password: sonarcube_pass]]
-    ]) {
-        sh 'sonar-scanner -Dsonar.host.url=http://172.31.7.44:9000 -Dsonar.login=admin -Dsonar.password=${sonarcube_pass} -Dsonar.projectKey=${component} ${sonar_extra_opts} -Dsonar.qualitygate.wait=true'
+    wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: sonarcube_pass]]]) {
+        sh 'sonar-scanner -Dsonar.host.url=http://172.31.7.44:9000 -Dsonar.login=${sonarcube_user} -Dsonar.password=${sonarcube_pass} -Dsonar.projectKey=${component} ${sonar_extra_opts} -Dsonar.qualitygate.wait=true'
     }
 }
 
@@ -60,12 +58,10 @@ def prepareArtifacts() {
 
 def uploadArtifacts() {
     sh 'echo uploading artifacts'
+    env.nexus_user = sh (script: 'aws ssm get-parameter --name "prod.nexus_user"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
     env.nexus_pass = sh (script: 'aws ssm get-parameter --name "prod.nexus_pass"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
-    wrap([
-        $class: 'MaskPasswordsBuildWrapper',
-        varPasswordPairs: [[password: nexus_pass]]
-    ]) {
-        sh "curl -v -u admin:${nexus_pass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/repository/${component}/${component}-${TAG_NAME}.zip"
+    wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: nexus_pass]]]) {
+        sh "curl -v -u ${nexus_user}:${nexus_pass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/repository/${component}/${component}-${TAG_NAME}.zip"
     }
 }
     
