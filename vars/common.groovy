@@ -48,22 +48,25 @@ def codequality() {
 }
 
 def prepareArtifacts() {
-    sh 'echo ${TAG_NAME} >VERSION'
-    if (app_lang == "maven") {
-        sh "zip -r ${component}-${TAG_NAME}.zip ${component}.jar schema VERSION"
-    }
-    else {
-        sh "zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile"
-    }
+    // sh 'echo ${TAG_NAME} >VERSION'
+    // if (app_lang == "maven") {
+    //     sh "zip -r ${component}-${TAG_NAME}.zip ${component}.jar schema VERSION"
+    // }
+    // else {
+    //     sh "zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile"
+    // }
+    sh 'docker build -t 334531533654.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME} .'
 }
 
 def uploadArtifacts() {
-    sh 'echo uploading artifacts'
-    env.nexus_user = sh (script: 'aws ssm get-parameter --name "prod.nexus_user"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
-    env.nexus_pass = sh (script: 'aws ssm get-parameter --name "prod.nexus_pass"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
-    wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: nexus_pass]]]) {
-        sh "curl -v -u ${nexus_user}:${nexus_pass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/repository/${component}/${component}-${TAG_NAME}.zip"
-    }
+    // sh 'echo uploading artifacts'
+    // env.nexus_user = sh (script: 'aws ssm get-parameter --name "prod.nexus_user"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
+    // env.nexus_pass = sh (script: 'aws ssm get-parameter --name "prod.nexus_pass"  --with-decryption|jq .Parameter.Value|xargs', returnStdout: true).trim()
+    // wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: nexus_pass]]]) {
+    //     sh "curl -v -u ${nexus_user}:${nexus_pass} --upload-file ${component}-${TAG_NAME}.zip http://172.31.15.8:8081/repository/${component}/${component}-${TAG_NAME}.zip"
+    // }
+    sh ' aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 334531533654.dkr.ecr.us-east-1.amazonaws.com'
+    sh 'docker push 334531533654.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME}'
 }
     
 
