@@ -20,7 +20,7 @@ def call() {
             stage('deploy servers') {
                 steps {
                     script {
-                        sh 'helm install ${component} . -f APP/helm/prod.yaml --set appversion=${app_version}'
+                        sh 'helm upgrade -i ${component} . -f APP/helm/prod.yaml --set appversion=${app_version}'
                     }
                 }
             }
